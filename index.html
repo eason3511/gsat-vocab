@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="學測單字">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#EEF3EC">
+<meta name="description" content="學測高頻單字複習系統：每日測驗、行動單字本、每週讀書計畫">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="icon-192.png">
+<link rel="stylesheet" href="tailwind.css">
+<title>學測高頻單字特訓</title>
+<style>
+  html, body { margin: 0; padding: 0; background: #EEF3EC; overscroll-behavior: none; }
+  #root { min-height: 100vh; }
+  #boot-loading { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+    font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", sans-serif; color: #5B6B6F; font-size: 14px; }
+</style>
+</head>
+<body>
+<div id="root"><div id="boot-loading">載入中…</div></div>
+
+<script>
+  // ---- localStorage-backed replacement for the Claude-artifact window.storage
+  // API, so the app's existing storage.get/set calls work unchanged on a
+  // real device. Data lives in this browser only (per device, per browser).
+  (function () {
+    function safeParseNull(v) { return v === null ? null : v; }
+    window.storage = {
+      async get(key, shared) {
+        try {
+          var raw = localStorage.getItem(key);
+          if (raw === null) return null;
+          return { key: key, value: raw, shared: !!shared };
+        } catch (e) { return null; }
+      },
+      async set(key, value, shared) {
+        try {
+          localStorage.setItem(key, value);
+          return { key: key, value: value, shared: !!shared };
+        } catch (e) { return null; }
+      },
+      async delete(key, shared) {
+        try {
+          var existed = localStorage.getItem(key) !== null;
+          localStorage.removeItem(key);
+          return { key: key, deleted: existed, shared: !!shared };
+        } catch (e) { return null; }
+      },
+      async list(prefix, shared) {
+        try {
+          var keys = [];
+          var p = prefix || "";
+          for (var i = 0; i < localStorage.length; i++) {
+            var k = localStorage.key(i);
+            if (k && k.indexOf(p) === 0) keys.push(k);
+          }
+          return { keys: keys, prefix: p, shared: !!shared };
+        } catch (e) { return null; }
+      }
+    };
+  })();
+</script>
+
+<script src="bundle.js"></script>
+</body>
+</html>
