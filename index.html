@@ -7,7 +7,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="學測單字">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#EEF3EC">
+<meta name="format-detection" content="telephone=no">
+<meta name="theme-color" content="#FDF6F7">
 <meta name="description" content="學測高頻單字複習系統：每日測驗、行動單字本、每週讀書計畫">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -15,10 +16,11 @@
 <link rel="stylesheet" href="tailwind.css">
 <title>學測高頻單字特訓</title>
 <style>
-  html, body { margin: 0; padding: 0; background: #EEF3EC; overscroll-behavior: none; }
+  html, body { margin: 0; padding: 0; background: #FDF6F7; overscroll-behavior: none; }
   #root { min-height: 100vh; }
   #boot-loading { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
-    font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", sans-serif; color: #5B6B6F; font-size: 14px; }
+    padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+    font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", sans-serif; color: #7D646D; font-size: 14px; }
 </style>
 </head>
 <body>
